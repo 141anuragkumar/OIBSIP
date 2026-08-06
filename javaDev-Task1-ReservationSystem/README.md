@@ -111,3 +111,20 @@ with a manual list of .java files (or just use the Maven option instead).
   jdbc:sqlite:reservation.db to jdbc:mysql://host:3306/dbname, add the
   MySQL Connector/J dependency, and adjust the CREATE TABLE syntax
   slightly (e.g. AUTO_INCREMENT vs SQLite's INTEGER PRIMARY KEY).
+-------------------------------------------------------------------------------------
+APPLICATION REVIEW
+<img width="1577" height="351" alt="image" src="https://github.com/user-attachments/assets/a7804f92-2497-4620-936c-741b2d325b3b" />
+<img width="493" height="353" alt="image" src="https://github.com/user-attachments/assets/c71ff5a9-304b-4712-8fa4-e2ffc03cca98" />
+<img width="488" height="342" alt="image" src="https://github.com/user-attachments/assets/56d5496d-bd67-40d3-9789-69d09ff07252" />
+<img width="522" height="333" alt="image" src="https://github.com/user-attachments/assets/9dcea673-dfcc-43fa-833c-5d88a3f298ab" />
+<img width="526" height="527" alt="image" src="https://github.com/user-attachments/assets/ce0372f0-ccca-4edd-b533-fa20a3fe17a2" />
+<img width="517" height="509" alt="image" src="https://github.com/user-attachments/assets/86dd2b2d-70a8-4f35-9bf4-ec157835cca2" />
+<img width="531" height="513" alt="image" src="https://github.com/user-attachments/assets/6929dd64-ae5a-4820-8a02-0a8917e55845" />
+<img width="544" height="512" alt="image" src="https://github.com/user-attachments/assets/010c86ff-1bae-4027-b50c-9f6e3a3b2130" />
+<img width="507" height="494" alt="image" src="https://github.com/user-attachments/assets/cbdc4fb7-59ab-44d7-931c-05c9b9fed93f" />
+
+
+
+
+
+
