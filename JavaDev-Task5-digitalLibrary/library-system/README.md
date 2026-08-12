@@ -1,4 +1,5 @@
 ## जिज्ञासा Digital Library Management System
+click here to visit - https://oibsip-2-7m8c.onrender.com/
 
 A Spring Boot web app with separate **Admin** and **User** roles for managing a book
 catalogue, issuing/returning books, tracking overdue fines, and advance-booking
@@ -51,4 +52,14 @@ library.fine.per-day=5.0
 ```
 
 ## One view of website here admin mode/user mode
+<img width="1919" height="988" alt="image" src="https://github.com/user-attachments/assets/599e0865-cdbc-471d-a049-255a9665455e" />
+<img width="1916" height="987" alt="image" src="https://github.com/user-attachments/assets/94f27044-77ce-43d4-bc3b-7c4aec63a99d" />
+
+## Admin pannel
+<img width="1910" height="987" alt="image" src="https://github.com/user-attachments/assets/fa2dbc7c-7ea3-4b56-9ca6-cf800503377c" />
+<img width="1913" height="983" alt="image" src="https://github.com/user-attachments/assets/c04437da-4784-4088-9868-924b078ac743" />
+
+
+
+
 
