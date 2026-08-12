@@ -1,0 +1,31 @@
+<div xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:fragment="header">
+    <header class="site-header">
+        <a class="brand" th:href="@{/}">जिज्ञासा
+            <small>Digital Library</small>
+        </a>
+        <nav class="site-nav">
+            <span sec:authorize="!isAuthenticated()">
+                <a th:href="@{/catalogue}">Catalogue</a>
+                <a th:href="@{/login}">Log in</a>
+                <a th:href="@{/register}">Register</a>
+            </span>
+            <span sec:authorize="hasRole('USER')">
+                <a th:href="@{/catalogue}">Catalogue</a>
+                <a th:href="@{/search}">Search</a>
+                <a th:href="@{/my-books}">My Books</a>
+                <a th:href="@{/contact}">Contact</a>
+                <a th:href="@{/logout}">Log out</a>
+            </span>
+            <span sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/admin/dashboard}">Dashboard</a>
+                <a th:href="@{/admin/books}">Books</a>
+                <a th:href="@{/admin/issued}">Issued</a>
+                <a th:href="@{/admin/reservations}">Reservations</a>
+                <a th:href="@{/admin/members}">Members</a>
+                <a th:href="@{/admin/fines}">Fines</a>
+                <a th:href="@{/admin/messages}">Messages</a>
+                <a th:href="@{/logout}">Log out</a>
+            </span>
+        </nav>
+    </header>
+</div>

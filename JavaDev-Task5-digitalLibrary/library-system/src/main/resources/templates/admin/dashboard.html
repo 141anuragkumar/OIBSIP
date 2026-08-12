@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<main class="container">
+    <h1 class="page-title">Admin dashboard</h1>
+    <div class="stats">
+        <div class="stat-tile"><div class="value" th:text="${totalBooks}">0</div><div class="label">Titles in catalogue</div></div>
+        <div class="stat-tile"><div class="value" th:text="${totalIssued}">0</div><div class="label">Books currently issued</div></div>
+        <div class="stat-tile"><div class="value" th:text="${totalMembers}">0</div><div class="label">Registered members</div></div>
+        <div class="stat-tile"><div class="value" th:text="${unpaidFines}">0</div><div class="label">Unpaid fines</div></div>
+        <div class="stat-tile"><div class="value" th:text="${openMessages}">0</div><div class="label">Open queries</div></div>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-top:0;">Quick actions</h3>
+        <a class="btn small" th:href="@{/admin/books/new}">Add a new book</a>
+        <a class="btn small secondary" th:href="@{/admin/issued}">View issued books</a>
+        <a class="btn small ghost" th:href="@{/admin/fines}">Manage fines</a>
+    </div>
+</main>
+<!-- <div th:replace="~{fragments/footer :: footer}"></div> -->
+</body>
+</html>

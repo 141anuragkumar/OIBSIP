@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Members</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<main class="container">
+    <h1 class="page-title">Registered members</h1>
+    <div class="alert success" th:if="${success}" th:text="${success}"></div>
+
+    <table class="ledger" th:if="${!members.isEmpty()}">
+        <thead>
+        <tr><th>Name</th><th>Email</th><th>Phone</th><th>Joined</th><th>Status</th><th></th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="m : ${members}">
+            <td th:text="${m.name}">Name</td>
+            <td th:text="${m.email}">Email</td>
+            <td th:text="${m.phone}">Phone</td>
+            <td th:text="${#temporals.format(m.createdAt, 'dd MMM yyyy')}">date</td>
+            <td>
+                <span th:if="${m.enabled}" class="pill ontime">Active</span>
+                <span th:unless="${m.enabled}" class="pill overdue">Suspended</span>
+            </td>
+            <td>
+                <form th:action="@{'/admin/members/' + ${m.id} + '/toggle'}" method="post" style="display:inline;">
+                    <input type="hidden" name="enabled" th:value="${!m.enabled}"/>
+                    <button class="btn small ghost" type="submit" th:text="${m.enabled} ? 'Suspend' : 'Reactivate'"></button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="empty-state" th:if="${members.isEmpty()}">No members have registered yet.</div>
+</main>
+<!-- <div th:replace="~{fragments/footer :: footer}"></div> -->
+</body>
+</html>

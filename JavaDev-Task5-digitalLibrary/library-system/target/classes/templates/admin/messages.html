@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Messages</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<main class="container">
+    <h1 class="page-title">Contact</h1>
+    <div class="alert success" th:if="${success}" th:text="${success}"></div>
+
+    <div class="card" th:each="m : ${messages}" style="border-left: 5px solid var(--accent);">
+        <div class="eyebrow" th:text="${#temporals.format(m.submittedAt, 'dd MMM yyyy, HH:mm')}">date</div>
+        <h3 style="margin:4px 0;" th:text="${m.name} + ' — ' + ${m.email}">Name — email</h3>
+        <p th:text="${m.message}">Message body</p>
+        <span th:if="${m.resolved}" class="pill ontime">Resolved</span>
+        <form th:unless="${m.resolved}" th:action="@{'/admin/messages/' + ${m.id} + '/resolve'}" method="post" style="display:inline;">
+            <button class="btn small ghost" type="submit">Mark resolved</button>
+        </form>
+    </div>
+    <div class="empty-state" th:if="${messages.isEmpty()}">No messages yet.</div>
+</main>
+<!-- <div th:replace="~{fragments/footer :: footer}"></div> -->
+</body>
+</html>

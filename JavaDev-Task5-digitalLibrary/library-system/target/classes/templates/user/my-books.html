@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>My Books</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<main class="container">
+    <h1 class="page-title">My books</h1>
+
+    <div class="alert success" th:if="${success}" th:text="${success}"></div>
+    <div class="alert error" th:if="${error}" th:text="${error}"></div>
+
+    <h3>Currently issued &amp; history</h3>
+    <table class="ledger" th:if="${!history.isEmpty()}">
+        <thead>
+        <tr>
+            <th>Book</th><th>Issued</th><th>Due</th><th>Status</th><th>Fine</th><th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="r : ${history}">
+            <td th:text="${r.book.title}">Title</td>
+            <td th:text="${r.issueDate}">2026-01-01</td>
+            <td th:text="${r.dueDate}">2026-01-15</td>
+            <td>
+                <span th:if="${r.status.name() == 'RETURNED'}" class="pill ontime">Returned</span>
+                <span th:if="${r.status.name() == 'ISSUED' and overdueDays.get(r.id) == null}" class="pill ontime">Issued — on time</span>
+                <span th:if="${r.status.name() == 'ISSUED' and overdueDays.get(r.id) != null}" class="pill overdue"
+                      th:text="'Overdue by ' + ${overdueDays.get(r.id)} + ' day(s)'"></span>
+            </td>
+            <td>
+                <span th:if="${r.fineAmount > 0}" th:text="'₹' + ${r.fineAmount} + (${r.finePaid} ? ' (paid)' : ' (unpaid)')"></span>
+                <span th:if="${r.fineAmount == 0 and r.status.name() == 'ISSUED' and overdueDays.get(r.id) != null}"
+                      th:text="'≈ ₹' + (${overdueDays.get(r.id) * finePerDay}) + ' accruing'"></span>
+                <span th:if="${r.fineAmount == 0 and (r.status.name() == 'RETURNED' or overdueDays.get(r.id) == null)}">—</span>
+            </td>
+            <td>
+                <form th:if="${r.status.name() == 'ISSUED'}" th:action="@{'/return/' + ${r.id}}" method="post">
+                    <button class="btn small" type="submit">Return</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="empty-state" th:if="${history.isEmpty()}">You haven't issued any books yet.</div>
+
+    <h3 style="margin-top:36px;">Reservations</h3>
+    <table class="ledger" th:if="${!reservations.isEmpty()}">
+        <thead>
+        <tr><th>Book</th><th>Reserved on</th><th>Status</th><th></th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="r : ${reservations}">
+            <td th:text="${r.book.title}">Title</td>
+            <td th:text="${#temporals.format(r.reservedAt, 'dd MMM yyyy')}">date</td>
+            <td>
+                <span th:if="${r.status.name() == 'PENDING'}" class="pill overdue">Waiting for a copy</span>
+                <span th:if="${r.status.name() == 'READY'}" class="pill ontime">Ready — you can issue it now</span>
+                <span th:if="${r.status.name() == 'FULFILLED'}" class="pill ontime">Fulfilled</span>
+                <span th:if="${r.status.name() == 'CANCELLED'}" class="pill">Cancelled</span>
+            </td>
+            <td>
+                <form th:if="${r.status.name() == 'READY'}" th:action="@{'/issue/' + ${r.book.id}}" method="post" style="display:inline;">
+                    <button class="btn small" type="submit">Issue now</button>
+                </form>
+                <form th:if="${r.status.name() == 'PENDING' or r.status.name() == 'READY'}"
+                      th:action="@{'/reservations/' + ${r.id} + '/cancel'}" method="post" style="display:inline;">
+                    <button class="btn small ghost" type="submit">Cancel</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="empty-state" th:if="${reservations.isEmpty()}">No reservations yet.</div>
+</main>
+</body>
+</html>

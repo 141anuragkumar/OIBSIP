@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Search </title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<main class="container">
+    <h1 class="page-title">Search the catalogue</h1>
+
+    <form th:action="@{/search}" method="get" class="card" style="display:flex; gap:10px; align-items:flex-end;">
+        <div style="flex:1;">
+            <label for="q">Title or author</label>
+            <input type="text" id="q" name="q" th:value="${query}" placeholder="e.g. Tolstoy, or 'War and Peace'" style="margin-bottom:0;"/>
+        </div>
+        <button class="btn" type="submit" style="margin-bottom:16px;">Search</button>
+    </form>
+
+    <div class="catalogue-grid" th:if="${query != null and !books.isEmpty()}" style="margin-top:20px;">
+        <div class="book-card" th:each="book : ${books}">
+            <span class="stamp" th:classappend="${book.availableQuantity > 0} ? 'available' : 'out'"
+                  th:text="${book.availableQuantity > 0} ? (${book.availableQuantity} + ' available') : 'all copies out'"></span>
+            <div class="eyebrow" th:text="${book.category}">Category</div>
+            <h3 th:text="${book.title}">Title</h3>
+            <div class="author" th:text="'by ' + ${book.author}">Author</div>
+            <div class="meta" th:text="'ISBN ' + ${book.isbn}">ISBN</div>
+            <div style="margin-top:14px;">
+                <form th:if="${book.availableQuantity > 0}" th:action="@{'/issue/' + ${book.id}}" method="post" style="display:inline;">
+                    <button class="btn small" type="submit">Issue this book</button>
+                </form>
+                <form th:if="${book.availableQuantity == 0}" th:action="@{'/reserve/' + ${book.id}}" method="post" style="display:inline;">
+                    <button class="btn small secondary" type="submit">Reserve</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="empty-state" th:if="${query != null and books.isEmpty()}">
+        No matches for "<span th:text="${query}"></span>".
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Manage Books</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<main class="container">
+    <h1 class="page-title">Manage books</h1>
+    <div class="alert success" th:if="${success}" th:text="${success}"></div>
+
+    <a class="btn" th:href="@{/admin/books/new}" style="margin-bottom:20px; display:inline-block;">+ Add new book</a>
+
+    <table class="ledger">
+        <thead>
+        <tr><th>Title</th><th>Author</th><th>ISBN</th><th>Category</th><th>Total</th><th>Available</th><th></th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${books}">
+            <td th:text="${book.title}">Title</td>
+            <td th:text="${book.author}">Author</td>
+            <td th:text="${book.isbn}">ISBN</td>
+            <td th:text="${book.category}">Category</td>
+            <td th:text="${book.quantity}">0</td>
+            <td th:text="${book.availableQuantity}">0</td>
+            <td>
+                <a class="btn small ghost" th:href="@{'/admin/books/' + ${book.id} + '/edit'}">Edit</a>
+                <form th:action="@{'/admin/books/' + ${book.id} + '/delete'}" method="post" style="display:inline;"
+                      onsubmit="return confirm('Delete this book from the catalogue?');">
+                    <button class="btn small secondary" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="empty-state" th:if="${books.isEmpty()}">No books in the catalogue yet. add the first one.</div>
+</main>
+<!-- <div th:replace="~{fragments/footer :: footer}"></div> -->
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Reservations</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<main class="container">
+    <h1 class="page-title">Advance bookings</h1>
+
+    <table class="ledger" th:if="${!reservations.isEmpty()}">
+        <thead>
+        <tr><th>Book</th><th>Member</th><th>Reserved on</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="r : ${reservations}">
+            <td th:text="${r.book.title}">Title</td>
+            <td th:text="${r.member.name} + ' (' + ${r.member.email} + ')'">Member</td>
+            <td th:text="${#temporals.format(r.reservedAt, 'dd MMM yyyy')}">date</td>
+            <td>
+                <span th:if="${r.status.name() == 'PENDING'}" class="pill overdue">Waiting</span>
+                <span th:if="${r.status.name() == 'READY'}" class="pill ontime">Ready for pickup</span>
+                <span th:if="${r.status.name() == 'FULFILLED'}" class="pill ontime">Fulfilled</span>
+                <span th:if="${r.status.name() == 'CANCELLED'}" class="pill">Cancelled</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="empty-state" th:if="${reservations.isEmpty()}">No reservations have been made yet.</div>
+</main>
+<!-- <div th:replace="~{fragments/footer :: footer}"></div> -->
+</body>
+</html>
