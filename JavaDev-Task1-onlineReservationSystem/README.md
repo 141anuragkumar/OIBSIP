@@ -11,18 +11,25 @@ Java Swing, JDBC, and SQLite (no separate database server required).
 
 - **Login Form** (LoginForm.java) — username/password fields; shows an
   "Access Denied" dialog for invalid credentials.
+
 - **Reservation Form** (ReservationForm.java) — passenger name, train
   number, train name (auto-populated live as you type a known train number),
   class type (dropdown), date of journey, source and destination station.
+
 - **Book button** — validates the form, generates a unique PNR
   (PRN + 10 random digits, format PNRxxxxxxxxxx), and saves the
   reservation to SQLite.
+
 - **Confirmation dialog** — shows the full booking summary (PNR, passenger,
   train, class, date, route) right after a successful booking.
+
 - **Cancellation Form** (CancellationForm.java) — enter a PNR and click
+
   **Fetch** to pull up the full booking details from the database.
+
 - **Confirm Cancellation** — guarded by an "Are you sure?" Yes/No dialog;
   only deletes the row from the database on confirmation.
+
 - **Input validation** — no required field may be empty, the train number
   must be numeric, the date must be a real calendar date in yyyy-MM-dd
   format, and the train number must match a train that actually exists
@@ -71,24 +78,28 @@ are seeded automatically:
 > anything beyond a learning project, hash passwords (e.g. with BCrypt)
 > before storing them.
 
+---------------------------------------------------------------------------------------------------
+
 ## How to build and run
 
 ### Option 1: Maven (recommended — requires internet access to Maven Central)
 Important :- If we want to install Maven give them priority other wise choose - option 2
 
 ```bash
-cd ReservationSystem
+cd JavaDev-Task1-onlineReservationSystem
 mvn clean package
 java -jar target/train-reservation-system.jar
 ```
 
+                                            -------------------------apply 1--------------------------
+                                            
 mvn package downloads the SQLite JDBC driver and slf4j automatically and
 bundles everything into one runnable jar via the shade plugin.
 
 ### Option 2: Manual javac/java (jars already included in lib/, no internet needed)
 
 ```bash
-cd ReservationSystem
+cd JavaDev-Task1-onlineReservationSystem
 
 # Compile
 Invoke-WebRequest -Uri "https://repo1.maven.org/maven2/org/xerial/sqlite-jdbc/3.44.1.0/sqlite-jdbc-3.44.1.0.jar" -OutFile "lib\sqlite-jdbc-3.44.1.0.jar"
@@ -105,8 +116,10 @@ with a manual list of .java files (or just use the Maven option instead).
 - **Add more trains:** insert rows into the trains table (via a small
   admin screen, or directly with a SQLite browser) — the reservation form
   will auto-populate their names immediately.
+
 - **List/search past bookings:** add a SELECT * FROM reservations WHERE
   passenger_name = ? query and a table (JTable) to browse them.
+
 - **Switch to MySQL:** swap the JDBC URL in DBManager.DB_URL from
   jdbc:sqlite:reservation.db to jdbc:mysql://host:3306/dbname, add the
   MySQL Connector/J dependency, and adjust the CREATE TABLE syntax
