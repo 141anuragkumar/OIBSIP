@@ -50,11 +50,5 @@ library.issue.loan-days=14
 library.fine.per-day=5.0
 ```
 
-## Notes on design choices
-- Roles are enforced with Spring Security (`ROLE_ADMIN` / `ROLE_USER`); admin routes are
-  locked down at `/admin/**`.
-- SQLite was chosen over MySQL so the project runs with zero external setup — swap the
-  `spring.datasource.*` properties for a MySQL URL/driver if you'd rather point it at a
-  real MySQL server; the JPA entities work unchanged either way.
-- Fines are calculated at return time (days late × per-day rate) and also shown as a
-  live "accruing" estimate on `/my-books` for books that are overdue but not yet returned.
+## One view of website here admin mode/user mode
+
