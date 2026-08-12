@@ -1,4 +1,4 @@
-# Train / Transport Reservation System (Java Swing + JDBC + SQLite)
+## Train / Transport Reservation System (Java Swing + JDBC + SQLite)
 
 - java swing - window/button/to creating form
 - JDBC       - communicate b/w java and databse(SQLite)
